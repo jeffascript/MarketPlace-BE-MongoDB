@@ -26,21 +26,20 @@ const reviewsSchema = new mongoose.Schema({
 
     reviewProductID:{
         type: mongoose.Schema.Types.ObjectID,
-        ref: "products",
-        required: [true, "review must belong to a Product"]
-    },
+         required: [true, "review must belong to a Product"]
+    }
    
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        required: false
-      },
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now,
+    //     required: false
+    //   },
     
-      updatedAt: {
-        type: Date,
-        default: Date.now,
-        required: false
-      }
+    //   updatedAt: {
+    //     type: Date,
+    //     default: Date.now,
+    //     required: false
+    //   }
 
 });
 

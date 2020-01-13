@@ -28,7 +28,7 @@ productRouter.get("/", async (req, res) => {
   //         res.send(products.filter(product => product.category === req.query.category))
   //    else
   //         res.send(products)
-  let coll = await Products.countDocuments();
+  let collection = await Products.countDocuments();
   try {
     const query = req.query;
     if (!query) {
@@ -52,11 +52,11 @@ productRouter.get("/", async (req, res) => {
         };
       });
       res.status(200).send({
-        totalCount: coll,
+        totalCount: collection,
         allProducts,
         searchquery: `${req.protocol}://${req.get(
           "host"
-        )}/products?sort=-1||1&limit=NUMBER&start=NUMBER`
+        )}/products/?sort=QUERY_STRING&limit=NUMBER&skip=NUMBER`
       });
     }
 
@@ -73,7 +73,7 @@ productRouter.get("/:id", async (req, res) => {
   const product = await Products.findById(req.params.id).populate("comments");
   // populate('field_to_populate', '-_id')
   // const product = products.find(prod => prod._id === req.params.id)
-  if (product) res.send(product);
+  if (product) res.send({ totalComments: product.comments.length, product });
   else res.status(404).send("Not found");
 });
 
@@ -235,7 +235,7 @@ productRouter.put("/:id", async (req, res) => {
   });
 
   /**
-     * Alternatively,
+         Alternatively,
      
          const editProduct = await Products.findByIdAndUpdate(req.params.id,{
          $set:{
